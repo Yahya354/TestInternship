@@ -43,7 +43,7 @@
             <div class="container-fluid">
                 <div class="row bg-title">
                     <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                        <h4 class="page-title">Diskusi</h4>
+                        <h4 class="page-title" id="cek">Diskusi</h4>
                     </div>
                     <!-- /.col-lg-12 -->
                 </div>
@@ -54,67 +54,51 @@
                             <!-- <h3 class="box-title">Recent Comments</h3> -->
                             <div class="box-title" style="margin-bottom: 60pt; margin-top: 20pt; margin-left: -15pt;">
                                 <div class="col-lg-3 col-sm-6 col-xs-12">
-                                    <button class="btn btn-block btn-warning">Tambah Diskusi</button>
+                                    <button type="button" class="btn btn-block btn-warning" data-toggle="modal" data-target="#exampleModal" data-whatever="@getbootstrap">Tambah Diskusi</button>
                                 </div>
                             </div>
                             <div class="comment-center">
-                                <div class="comment-body">
-                                    <div class="user-img"> <img src="<?= base_url() ?>assets/fotoprofil/1.jpg" alt="user" class="img-circle"></div>
-                                    <div class="mail-contnet">
-                                        <div class="row">
-                                            <h5>Pavan kumar &nbsp;&nbsp;<small style="color: yellow;">- (April 14, 2016)</small></h5>
-                                            <p style="color: black;">Donec ac condimentum massa. Etiam pellentesque pretium lacus. Phasellus ultricies dictum suscipit. Aenean commodo dui pellentesque molestie feugiat.</p>
-                                            <p style="font-size: 9pt;">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                                            <div class="col-lg-12 col-sm-12 col-xs-12 col-md-12" style="margin-top: 5pt;">
-                                                <p style="font-weight: bold;">23 Jawaban</p>
-                                                <textarea style="margin-left: -5pt;" id="textarea" class="form-control" placeholder="Tulis komentar anda disini..."></textarea>
-                                            </div>
-                                        </div>
-                                    </div>
+                                <div class="comment-body" id="detailDiskusi">
                                 </div>
-                                <div class="comment-body" style="margin-left: 40pt;">
-                                    <div class="row">
-                                        <div class="col-lg-12 col-sm-12 col-xs-12 col-md-12">
-                                            <div class="user-img"> <img src="<?= base_url() ?>assets/fotoprofil/2.jpg" alt="user" class="img-circle"></div>
-                                            <div class="mail-contnet">
-                                                <div class="row">
-                                                    <h5>Arijit Sinh &nbsp;&nbsp;<small style="color: yellow;">- (April 14, 2016)</small></h5>
-                                                    <p style="color: black; font-size: 9pt;">Donec ac condimentum massa. Etiam pellentesque pretium lacus. Phasellus ultricies dictum suscipit. Aenean commodo dui pellentesque molestie feugiat.</p>
-                                                    <p style="font-size: 9pt; color: yellow;">Balas</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-12 col-sm-12 col-xs-12 col-md-12">
-                                            <div style="margin-left: 30pt; margin-top: 5pt;">
-                                                <div class="user-img" style="width: 25px; height: 25px;">
-                                                    <img src="<?= base_url() ?>assets/fotoprofil/1.jpg" alt="user" class="img-circle" width="25" height="25">
-                                                </div>
-                                                <div class="mail-contnet">
-                                                    <div class="row">
-                                                        <h5>Pavan kumar &nbsp;&nbsp;<small style="color: yellow;">- (April 14, 2016)</small></h5>
-                                                        <p style="color: black; font-size: 9pt;">Donec ac condimentum massa. Etiam pellentesque pretium lacus. Phasellus ultricies dictum suscipit. Aenean commodo dui pellentesque molestie feugiat.</p>
-                                                        <p style="font-size: 9pt; color: yellow;">Balas</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="comment-body" style="margin-left: 40pt;">
-                                    <div class="user-img"> <img src="<?= base_url() ?>assets/fotoprofil/3.jpg" alt="user" class="img-circle"></div>
-                                    <div class="mail-contnet">
-                                        <div class="row">
-                                            <h5>Sonu Nigam &nbsp;&nbsp;<small style="color: yellow;">- (April 14, 2016)</small></h5>
-                                            <p style="color: black; font-size: 9pt;">Donec ac condimentum massa. Etiam pellentesque pretium lacus. Phasellus ultricies dictum suscipit. Aenean commodo dui pellentesque molestie feugiat.</p>
-                                            <p style="font-size: 9pt; color: yellow;">Balas</p>
-                                        </div>
-                                    </div>
+                                <div id="listJawaban">
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <!-- /.row -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="exampleModalLabel1">Tambah Diskusi</h4>
+                            </div>
+                            <div class="modal-body">
+                                <form>
+                                    <div class="form-group">
+                                        <label for="recipient-name" class="control-label">Judul:</label>
+                                        <input type="text" class="form-control" id="recipient-name1">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="message-text" class="control-label">Deskripsi:</label>
+                                        <textarea class="form-control" id="message-text1"></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="recipient-name" class="control-label" id="cek">Kategori:</label>
+                                        <br>
+                                        <select class="form-control" id="listKategori">
+                                        </select>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
+                                <button type="button" class="btn btn-warning">Simpan</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>\
         <!-- /#page-wrapper -->
     </div>
@@ -160,7 +144,163 @@
         }, window.save = function () {
             $(".click2edit").destroy()
         }
-    </script>\
+    </script>
+    <script>
+        $(document).ready(function () {
+            var data = "<?php echo $data; ?>";
+            setKategori();
+            detailDiskusi();
+            listJawaban();
+
+            function setKategori(){
+                var Get = "41ff8b56dc1600ebb68aa901a4299d12";
+                $.ajax({
+                    type        : "POST",
+                    url         : "<?php echo base_url()?>index.php/Dashboard/getAllKategori",
+                    dataType    : "text",
+                    data        :   {
+                                        Get: Get
+                                    },
+                    success : function(d){
+                        var data = JSON.parse(d);
+
+                        var sel = document.getElementById('listKategori');
+                        for (var i = 0; i < data.length; i++) {
+                            var opt = document.createElement('option');
+                            opt.appendChild(document.createTextNode(data[i].NamaKategori));
+                            opt.value = data[i].KategoriID;
+                            sel.appendChild(opt);
+                        }
+                    }
+                });
+            }
+
+            function detailDiskusi(){
+                var Get = "41ff8b56dc1600ebb68aa901a4299d12";
+                $.ajax({
+                    type        : "POST",
+                    url         : "<?php echo base_url()?>index.php/Dashboard/getByIdDiskusi",
+                    dataType    : "text",
+                    data        :   {
+                                        Get: Get,
+                                        Data :data
+                                    },
+                    success : function(d){
+                        var data = JSON.parse(d);
+                        // document.getElementById("cek").innerHTML = data[0].FullName;
+                        var html = '';
+                        var count = 0;
+                        if (data[0].Jawaban != null){
+                            count = data[0].Jawaban;
+                        } else {
+                            count = 0;
+                        }
+
+                        html += ""+
+                        '<div class="user-img"> <img src="<?= base_url() ?>assets/fotoprofil/'+data[0].PhotoProfile+'" alt="user" class="img-circle"></div>'+
+                        '<div class="mail-contnet">'+
+                            '<div class="row">'+
+                                '<h5>'+data[0].FullName+' &nbsp;&nbsp;<small style="color: yellow;">- ('+data[0].BeginDate+')</small></h5>'+
+                                '<p style="color: black;">'+data[0].Judul+'</p>'+
+                                '<p style="font-size: 9pt;">'+data[0].Deskripsi+'</p>'+
+                                '<div class="col-lg-12 col-sm-12 col-xs-12 col-md-12" style="margin-top: 5pt;">'+
+                                    '<p style="font-weight: bold;">'+count+' Jawaban</p>'+
+                                    '<textarea style="margin-left: -5pt;" id="textarea" class="form-control" placeholder="Tulis komentar anda disini..."></textarea>'+
+                                '</div>'+
+                            '</div>'+
+                        '</div>';
+                        document.getElementById("detailDiskusi").innerHTML = html;
+                    }
+
+                });
+            }
+
+            function listJawaban(){
+                var Get = "41ff8b56dc1600ebb68aa901a4299d12";
+                $.ajax({
+                    type        : "POST",
+                    url         : "<?php echo base_url()?>index.php/Dashboard/getByDiskusiIdJawaban",
+                    dataType    : "text",
+                    data        :   {
+                                        Get: Get,
+                                        Data :data
+                                    },
+                    success : function(d){
+                        var data = JSON.parse(d);
+                        var count = 0;
+                        var JawabanID = 0;
+                        if (data.length > 0) {
+                            var html = '';
+
+                            for (var i = 0; i < data.length; i++){
+                                html += ""+
+                                '<div class="comment-body" style="margin-left: 40pt;">'+
+                                    '<div class="row">'+
+                                        '<div class="col-lg-12 col-sm-12 col-xs-12 col-md-12">'+
+                                            '<div class="user-img"> <img src="<?= base_url() ?>assets/fotoprofil/'+data[i].PhotoProfile+'" alt="user" class="img-circle"></div>'+
+                                            '<div class="mail-contnet">'+
+                                                '<div class="row">'+
+                                                    '<h5>'+data[i].FullName+' &nbsp;&nbsp;<small style="color: yellow;">- ('+data[i].BeginDate+')</small></h5>'+
+                                                    '<p style="color: black; font-size: 9pt;">'+data[i].Jawaban+'</p>'+
+                                                    '<p style="font-size: 9pt; color: yellow;">Balas</p>'+
+                                                '</div>'+
+                                            '</div>'+
+                                        '</div>'+
+                                        '<div id="listBalasan'+data[i].JawabanID+'">'+
+                                        '</div>'+
+                                    '</div>'+
+                                '</div>';
+
+                                if (data[i].Balasan != null){
+                                    count = data[i].Balasan;
+                                    JawabanID = data[i].JawabanID;
+                                } else {
+                                    count = 0;
+                                }
+
+                                if (count > 0){
+                                    $.ajax({
+                                        type        : "POST",
+                                        url         : "<?php echo base_url()?>index.php/Dashboard/getByJawabanIdBalasan",
+                                        dataType    : "text",
+                                        data        :   {
+                                                            Get: Get,
+                                                            JawabanID :JawabanID
+                                                        },
+                                        success : function(bd){
+                                            var bdata = JSON.parse(bd);
+                                            if (bdata.length > 0) {
+                                                var bhtml = '';
+                                                for (var j = 0; j < bdata.length; j++){
+                                                    bhtml += ""+
+                                                    '<div class="col-lg-12 col-sm-12 col-xs-12 col-md-12">'+
+                                                        '<div style="margin-left: 30pt; margin-top: 5pt;">'+
+                                                            '<div class="user-img" style="width: 25px; height: 25px;">'+
+                                                                '<img src="<?= base_url() ?>assets/fotoprofil/'+bdata[j].PhotoProfile+'" alt="user" class="img-circle" width="25" height="25">'+
+                                                            '</div>'+
+                                                            '<div class="mail-contnet">'+
+                                                                '<div class="row">'+
+                                                                    '<h5>'+bdata[j].FullName+' &nbsp;&nbsp;<small style="color: yellow;">- ('+bdata[j].BeginDate+')</small></h5>'+
+                                                                    '<p style="color: black; font-size: 9pt;">'+bdata[j].Balasan+'</p>'+
+                                                                    '<p style="font-size: 9pt; color: yellow;">Balas</p>'+
+                                                                '</div>'+
+                                                            '</div>'+
+                                                        '</div>'+
+                                                    '</div>';
+                                                }
+                                                document.getElementById("listBalasan"+JawabanID).innerHTML = bhtml;
+                                            }
+                                        }
+                                    });
+                                }
+                            }
+                            document.getElementById("listJawaban").innerHTML = html;
+                        }
+                    }
+                });
+            }
+        });
+    </script>
 <script src="<?= base_url() ?>assets/plugins/bower_components/styleswitcher/jQuery.style.switcher.js"></script>
 </body>
 

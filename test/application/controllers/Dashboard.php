@@ -29,15 +29,48 @@ class Dashboard extends CI_Controller {
 		$this->load->view("dashboard");
 	}
 
-	public function detail()
+	public function detail($data)
 	{
-		$this->load->view("detail");
+		$argument['data'] = $data;
+		$this->load->view("detail", $argument);
 	}
 
 	public function getAllDiskusi()
 	{
 		if($_POST['Get'] == "41ff8b56dc1600ebb68aa901a4299d12"){
 			$result = $this->MDashboard->getAllDiskusi();
+			echo json_encode($result);
+		}
+	}
+
+	public function getAllKategori()
+	{
+		if($_POST['Get'] == "41ff8b56dc1600ebb68aa901a4299d12"){
+			$result = $this->MDashboard->getAllKategori();
+			echo json_encode($result);
+		}
+	}
+
+	public function getByIdDiskusi()
+	{
+		if($_POST['Get'] == "41ff8b56dc1600ebb68aa901a4299d12"){
+			$result = $this->MDashboard->getByIdDiskusi($_POST['Data']);
+			echo json_encode($result);
+		}
+	}
+
+	public function getByDiskusiIdJawaban()
+	{
+		if($_POST['Get'] == "41ff8b56dc1600ebb68aa901a4299d12"){
+			$result = $this->MDashboard->getByDiskusiIdJawaban($_POST['Data']);
+			echo json_encode($result);
+		}
+	}
+
+	public function getByJawabanIdBalasan()
+	{
+		if($_POST['Get'] == "41ff8b56dc1600ebb68aa901a4299d12"){
+			$result = $this->MDashboard->getByJawabanIdBalasan($_POST['JawabanID']);
 			echo json_encode($result);
 		}
 	}

@@ -23,6 +23,16 @@
     <link href="<?= base_url() ?>assets/css/style.css" rel="stylesheet">
     <!-- color CSS -->
     <link href="<?= base_url() ?>assets/css/colors/blue.css" id="theme" rel="stylesheet">
+    <!--alerts CSS -->
+    <link href="<?= base_url() ?>assets/plugins/bower_components/sweetalert/sweetalert.css" rel="stylesheet" type="text/css">
+    <!-- page CSS -->
+    <link href="<?= base_url() ?>assets/plugins/bower_components/bootstrap-datepicker/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?= base_url() ?>assets/plugins/bower_components/custom-select/custom-select.css" rel="stylesheet" type="text/css" />
+    <link href="<?= base_url() ?>assets/plugins/bower_components/switchery/dist/switchery.min.css" rel="stylesheet" />
+    <link href="<?= base_url() ?>assets/plugins/bower_components/bootstrap-select/bootstrap-select.min.css" rel="stylesheet" />
+    <link href="<?= base_url() ?>assets/plugins/bower_components/bootstrap-tagsinput/dist/bootstrap-tagsinput.css" rel="stylesheet" />
+    <link href="<?= base_url() ?>assets/plugins/bower_components/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.css" rel="stylesheet" />
+    <link href="<?= base_url() ?>assets/plugins/bower_components/multiselect/css/multi-select.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body>
@@ -44,11 +54,43 @@
                         <div class="white-box">
                             <!-- <h3 class="box-title">Recent Comments</h3> -->
                             <div class="box-title" style="margin-bottom: 40pt; margin-left: -15pt;">
-                                <div class="col-lg-3 col-sm-6 col-xs-12" id="cek">
-                                    <button class="btn btn-block btn-warning">Tambah Diskusi</button>
+                                <div class="col-lg-3 col-sm-6 col-xs-12">
+                                    <button type="button" class="btn btn-block btn-warning" data-toggle="modal" data-target="#exampleModal" data-whatever="@getbootstrap">Tambah Diskusi</button>
                                 </div>
                             </div>
                             <div class="comment-center" id="listDiskusi">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="exampleModalLabel1">Tambah Diskusi</h4>
+                            </div>
+                            <div class="modal-body">
+                                <form>
+                                    <div class="form-group">
+                                        <label for="recipient-name" class="control-label">Judul:</label>
+                                        <input type="text" class="form-control" id="recipient-name1">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="message-text" class="control-label">Deskripsi:</label>
+                                        <textarea class="form-control" id="message-text1"></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="recipient-name" class="control-label" id="cek">Kategori:</label>
+                                        <br>
+                                        <select class="form-control" id="listKategori">
+                                        </select>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
+                                <button type="button" class="btn btn-warning">Simpan</button>
                             </div>
                         </div>
                     </div>
@@ -81,9 +123,16 @@
     <script src="<?= base_url() ?>assets/plugins/bower_components/jquery-sparkline/jquery.sparkline.min.js"></script>
     <script src="<?= base_url() ?>assets/plugins/bower_components/jquery-sparkline/jquery.charts-sparkline.js"></script>
     <script src="<?= base_url() ?>assets/plugins/bower_components/toast-master/js/jquery.toast.js"></script>
+    <!-- Sweet-Alert  -->
+    <script src="<?= base_url() ?>assets/plugins/bower_components/sweetalert/sweetalert.min.js"></script>
+    <script src="<?= base_url() ?>assets/plugins/bower_components/sweetalert/jquery.sweet-alert.custom.js"></script>
+
+    <script src="<?= base_url() ?>assets/plugins/bower_components/custom-select/custom-select.min.js" type="text/javascript"></script>
+    <script src="<?= base_url() ?>assets/plugins/bower_components/bootstrap-select/bootstrap-select.min.js" type="text/javascript"></script>
     <script>
         $(document).ready(function () {
             listDiskusi();
+            setKategori();
 
             function listDiskusi(){
                 var Get = "41ff8b56dc1600ebb68aa901a4299d12";
@@ -109,7 +158,7 @@
                                 '<div class="user-img"> <img src="<?= base_url() ?>assets/fotoprofil/'+data[i].PhotoProfile+'" alt="user" class="img-circle"></div>' + 
                                 '<div class="mail-contnet">' +
                                     '<h5>'+data[i].FullName+' &nbsp;&nbsp;<small style="color: yellow;">- ('+data[i].BeginDate+')</small></h5>' +
-                                    '<a href="<?= site_url('Dashboard/detail/') ?>">' +
+                                    '<a href="<?= site_url("Dashboard/detail/'+data[i].DiskusiID+'") ?>">' +
                                         '<span class="mail-desc">' +
                                             '<div class="row">' +
                                                 '<div class="col-lg-9 col-sm-9 col-xs-9 col-md-9"><p style="width: 500pt;">' +
@@ -130,6 +179,29 @@
                         document.getElementById("listDiskusi").innerHTML = html;
                     }
 
+                });
+            }
+
+            function setKategori(){
+                var Get = "41ff8b56dc1600ebb68aa901a4299d12";
+                $.ajax({
+                    type        : "POST",
+                    url         : "<?php echo base_url()?>index.php/Dashboard/getAllKategori",
+                    dataType    : "text",
+                    data        :   {
+                                        Get: Get
+                                    },
+                    success : function(d){
+                        var data = JSON.parse(d);
+
+                        var sel = document.getElementById('listKategori');
+                        for (var i = 0; i < data.length; i++) {
+                            var opt = document.createElement('option');
+                            opt.appendChild(document.createTextNode(data[i].NamaKategori));
+                            opt.value = data[i].KategoriID;
+                            sel.appendChild(opt);
+                        }
+                    }
                 });
             }
         });
